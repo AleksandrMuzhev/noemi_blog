@@ -230,6 +230,7 @@ img {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 4px;
+    max-width: none;
 }
 
 .trend {
@@ -293,14 +294,42 @@ img {
 }
 
 /* Основной контент */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 65px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
 .main {
-    padding: 60px 0;
+    float: left;
+    width: calc(100% - 295px); /* 100% - ширина aside */
 }
 
 .main__container {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 65px;
+}
+
+.sidebar {
+    float: right;
+    width: 270px;
+}
+
+.sidebar__container {
+    max-width: 270px; 
+    margin-left: auto;
+}
+
+/* Очистка float */
+.main::after,
+.sidebar::after {
+    content: '';
+    display: table;
+    clear: both;
 }
 
 /* Посты */
@@ -433,34 +462,39 @@ img {
 /* Поиск */
 .search__form {
     position: relative;
+    display: flex;
 }
 
 .search__input {
     width: 100%;
-    padding: 15px 50px 15px 20px;
+    padding: 15px 60px 15px 20px; /* Больше правый padding для кнопки */
     border: none;
-    background-color: var(--gray);
+    background-color: #f4f4f4;
     font-family: inherit;
     font-size: 13px;
 }
 
-.search__input:focus {
-    outline: none;
-    background-color: var(--white);
-    box-shadow: inset 0 0 0 1px var(--primary-color);
-}
-
 .search__button {
     position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    background: none;
+    top: 0;
+    right: 0;
+    width: 48px; /* Ширина кнопки */
+    height: 100%;
+    background-color: #b59f5b;
+    color: white;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    padding: 0;
-    width: 20px;
-    height: 20px;
+}
+
+.search__button:hover {
+    background-color: #9e8b4c;
+}
+
+.search__button i {
+    font-size: 16px;
 }
 
 .search__icon {
@@ -643,6 +677,7 @@ img {
     text-decoration: underline;
 }
 
+
 /* Модальное окно */
 .modal {
     display: none;
@@ -743,6 +778,18 @@ img {
 
 /* Планшеты (768px - 1024px) */
 @media (max-width: 1024px) {
+
+    .main,
+    .sidebar {
+        float: none;
+        width: 100%;
+    }
+    
+    .sidebar {
+        max-width: 270px;
+        margin: 40px auto 0;
+    }
+
     .container {
         padding: 0 35px;
     }
@@ -773,6 +820,38 @@ img {
     .shop__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 35px;
+    }
+}
+
+/* ПЛАНШЕТЫ (641px - 1200px) */
+@media (max-width: 1200px) and (min-width: 641px) {
+    .main__container {
+        display: block;
+        gap: 40px;
+    }
+
+    .posts {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    
+    .sidebar__container {
+        max-width: 100%; /* Занимает всю ширину */
+        margin: 0 auto;
+    }
+    
+    /* Делаем aside фиксированной ширины внутри */
+    .sidebar {
+        width: 270px;
+        margin: 0 auto;
+        float: none;
+    }
+
+    /* Очистка float */
+    .main::after {
+        content: '';
+        display: table;
+        clear: both;
     }
 }
 
@@ -822,16 +901,16 @@ img {
 
     .trends__grid {
         grid-template-columns: 1fr;
-    }
+        gap: 0;
 
     .trend {
-        min-height: 250px;
+        min-height: 200px;
     }
 
     .trend__content {
-        padding: 20px;
-        margin: 10px;
-        min-height: 120px;
+        margin: 0 !important; /* Убираем отступы */
+        padding: 15px !important;
+        border: none !important;
     }
 
     .trend__name {
@@ -867,6 +946,22 @@ img {
     .modal__content {
         padding: 30px 20px;
         width: 95%;
+    }
+}
+
+/* МОБИЛЬНЫЕ (до 640px) */
+@media (max-width: 640px) {
+    .main__container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .sidebar {
+        width: 100%;
+    }
+    
+    .sidebar__container {
+        max-width: 100%;
     }
 }
 
